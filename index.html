@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Validation Form</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div>
+        <h3> Заполните форму</h3>
+        <form id="form" action="#">
+          <div class="inputBox">
+            <input type="text" name="" id="email" placeholder="john_smith@gmail.com" required onkeydown="validationEmail()">
+            <span id="text"></span>
+            <br>
+            <input type="tel" id="tel" placeholder="+79951122131" required onkeydown="validationTel()">
+            <span id="text1"></span>
+            <br>
+            <input type="text" id="name" placeholder="Иванов Александр Александрович" required onkeydown="validationName()">
+            <span id="text2"></span>
+            <input type="submit" id="submit" value="Отправить"
+            onclick="return submitFun();" />
+          </div>
+        </form>
+      </div>
+    <script type="text/javascript">
+       function validateInput(input_id, output_id, pattern_text, valid_message, invalid_message) {
+        var form = document.getElementById("form");
+        var data = document.getElementById(input_id).value;
+        var result = document.getElementById(output_id);
+          if (data.match(pattern_text)) {
+            form.classList.add("valid");
+            form.classList.remove("invalid");
+            result.innerHTML = valid_message;
+            result.style.color = "#00ff00";
+          } else {
+            form.classList.remove("valid");
+            form.classList.add("invalid");
+            result.innerHTML = invalid_message;
+            result.style.color = "#ff0000";
+          }
+          if (data == "") {
+            form.classList.remove("valid");
+            form.classList.remove("invalid");
+            result.innerHTML = "";
+            result.style.color = "#00ff00";
+          }
+}
+function validationEmail() {
+  var pattern = "[a-zZ-Z0-9\.]*@[a-zZ-Z0-9\.]*\.[a-zZ-Z0-9\.]{2,3}";
+  validateInput("email", "text",
+   pattern, "Ваша почта подходит.", "Пожалуйста введите правильную почту");
+}
+function validationTel() {
+  var pattern = "\\+[0-9]{11}";
+  validateInput("tel", "text1",
+   pattern, "Телефон подходит.", "Пожалуйста введите правильный телефон.");
+}
+function validationName() {
+  var pattern = "[A-ЯЁ][а-яё]*";
+  validateInput("name", "text2",
+   pattern, "Имя подходит.", "Пожалуйста введите правильное имя");
+}
+function submitFun(){
+  console.log( "Иванов Иван Иванович" )
+  console.log( "mail@gmail.com" )
+  console.log( "+79994445566" )
+}
+    </script>
+</body>
+</html>
